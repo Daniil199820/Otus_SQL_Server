@@ -1,0 +1,3 @@
+/home/daniil/cpp/Otus_outer_join/.gitignore/CMakeFiles/main.dir
+/home/daniil/cpp/Otus_outer_join/.gitignore/CMakeFiles/edit_cache.dir
+/home/daniil/cpp/Otus_outer_join/.gitignore/CMakeFiles/rebuild_cache.dir
