@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.2)
 
 project(27.DB)
 
@@ -13,5 +13,5 @@ set_target_properties(main PROPERTIES
 
 target_link_libraries(main
         ${CMAKE_THREAD_LIBS_INIT}
-        dl
+        #dl
         )

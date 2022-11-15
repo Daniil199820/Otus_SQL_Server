@@ -1,11 +1,15 @@
 #include <iostream>
 #include <vector>
 
-#include "sqlite3.h"
+//#include "sqlite3.h"
 
+int main(){
+	
 
+	return 0;
+}
 
-int main() {
+/*int main() {
 
 	const char* dbName = "test_database.sqlite";
 	// const char* dbName = ":memory:";
@@ -25,7 +29,7 @@ int main() {
 	// const std::string createQuery = "CREATE TABLE IF NOT EXISTS test_table(name, age, cource);";
 #pragma endregion
 	if (sqlite3_exec(handle, createQuery.c_str(), /*callback*/nullptr, /*cb 1st argument*/nullptr, &errMsg)) {
-		std::cout << "sqlite3_exec with createQuery failed! " << errMsg << std::endl;
+	/*	std::cout << "sqlite3_exec with createQuery failed! " << errMsg << std::endl;
 		sqlite3_free(errMsg);
 		return -1;
 	}
@@ -45,13 +49,13 @@ int main() {
 			return 0;
 		}
 
-		std::cout << "Columns:" << std::endl;
-		for (int i=0; i<columns; ++i) {
-			if (i != 0)
-				std::cout << '\t';
-			std::cout << names[i];
-		}
-		std::cout << std::endl;
+	//	std::cout << "Columns:" << std::endl;
+	//	for (int i=0; i<columns; ++i) {
+	//		if (i != 0)
+	//			std::cout << '\t';
+	//		std::cout << names[i];
+	//	}
+	//	std::cout << std::endl;
 
 		if (!data) {
 			std::cout << "No data!" << std::endl;
@@ -71,7 +75,7 @@ int main() {
 
 	const std::string selectAllQuery = "SELECT * FROM test_table;";
 	if (sqlite3_exec(handle, selectAllQuery.c_str(), /*callback*/readCallback, /*cb 1st argument*/nullptr, &errMsg)) {
-		std::cout << "sqlite3_exec with createQuery failed! " << errMsg << std::endl;
+	/*	std::cout << "sqlite3_exec with createQuery failed! " << errMsg << std::endl;
 		sqlite3_free(errMsg);
 		return -1;
 	}
@@ -82,29 +86,33 @@ int main() {
 
 
 	const std::vector<const char *> insertQueries = {
-		"INSERT INTO test_table VALUES('Ivan', 28, 1);",
-		"INSERT INTO test_table VALUES('Andrew', 32, 2);",
+		"INSERT INTO test_table VALUES('Ivan', 32, 1);",
+		"INSERT INTO test_table VALUES('Andrew', 10, 2);",
 		"INSERT INTO test_table VALUES('Alex', 48, 3);"
 	};
 
 	for (const auto& query : insertQueries)
 		if (sqlite3_exec(handle, query, /*callback*/nullptr, /*cb 1st argument*/nullptr, &errMsg)) {
-			std::cout << "sqlite3_exec with createQuery failed! " << errMsg << std::endl;
+	/*		std::cout << "sqlite3_exec with createQuery failed! " << errMsg << std::endl;
 			sqlite3_free(errMsg);
 			return -1;
 		}		
 	std::cout << "Successfully inserted!" << std::endl;
 
-	
-
-
 	if (sqlite3_exec(handle, selectAllQuery.c_str(), /*callback*/readCallback, /*cb 1st argument*/nullptr, &errMsg)) {
-		std::cout << "sqlite3_exec with createQuery failed! " << errMsg << std::endl;
+	/*	std::cout << "sqlite3_exec with createQuery failed! " << errMsg << std::endl;
 		sqlite3_free(errMsg);
 		return -1;
 	}
 	std::cout << "Successfully selected!" << std::endl;
 
+	const std::string sorted_request = "SELECT * from test_table ORDER BY age;";
+	if (sqlite3_exec(handle, sorted_request.c_str(), /*callback*/readCallback, /*cb 1st argument*/nullptr, &errMsg)) {
+	/*	std::cout << "sqlite3_exec with createQuery failed! " << errMsg << std::endl;
+		sqlite3_free(errMsg);
+		return -1;
+	}
+	std::cout << "Successfully selected!" << std::endl;
 
 	return 0;
-}
+}*/
