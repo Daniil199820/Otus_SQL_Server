@@ -3,16 +3,73 @@
 #include <string>
 #include <vector>
 #include <iostream>
-
+#include <unordered_map>
 
 enum COMMANDS{INSERT, TRUNCATE, INTERSECTION, SYMMETRIC_DIFFERENCE};
 
+class Data_table{
+public:
+    void insert(){
+
+    }
+
+    void truncate(){
+
+    }
+
+    void intersection(){
+
+    }
+
+    void symmetric_difference(){
+
+    }
+
+};
+
+class Command{
+
+};
 
 class Request_manager{
 public:
     void set_request(const std::string& str_command){
-        std::cout <<  
+        //std::cout <<  
     }
+
+private:
+    std::unordered_map<const std::string, Command*> commands_dict;
+
+    void parce_function(const std::string& str_){
+        std::vector<std::string> temp_splitted = split(str_,'   ');
+        
+        if( temp_splitted.empty()){
+            //throw ("use tabulations for splitting"); 
+        }
+
+        
+
+    }
+
+    std::vector<std::string> split(const std::string &str, char d)
+    {
+	    std::vector<std::string> r;
+
+	    std::string::size_type start = 0;
+	    std::string::size_type stop = str.find_first_of(d);
+	    while (stop != std::string::npos)
+	    {
+		    r.push_back(str.substr(start, stop - start));
+
+		    start = stop + 1;
+		    stop = str.find_first_of(d, start);
+	    }
+
+	    r.push_back(str.substr(start));
+
+	    return r;
+    }
+
 };
 
 
