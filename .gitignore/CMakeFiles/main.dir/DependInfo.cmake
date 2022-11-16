@@ -8,7 +8,6 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/daniil/cpp/Otus_outer_join/sqlite3.c" "CMakeFiles/main.dir/sqlite3.c.o" "gcc" "CMakeFiles/main.dir/sqlite3.c.o.d"
   "/home/daniil/cpp/Otus_outer_join/main.cpp" "CMakeFiles/main.dir/main.cpp.o" "gcc" "CMakeFiles/main.dir/main.cpp.o.d"
   )
 
