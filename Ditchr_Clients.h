@@ -5,6 +5,8 @@
 #include <condition_variable>
 #include <queue>
 #include <functional>
+#include "Ditchr_Requests.h"
+#include <chrono>
 
 class Client_require{
 public:
@@ -13,15 +15,24 @@ public:
 
     Client_require():m_stopped{false}{
         worker_thread = std::thread(&Client_require::process,this);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 
 
-    void add_task(const std::string& command_str){
+    void make_request(const std::string& command_str){
         {
-        std::lock_guard<std::mutex> guard(worker_mutex);
-        m_tasks.push(command_str);
+            std::lock_guard<std::mutex> guard(worker_mutex);
+            m_tasks.push(command_str);
         }
         wait_worker.notify_all();
+    }
+
+    ~Client_require(){
+        m_stopped = true;
+        wait_worker.notify_all();
+        if(worker_thread.joinable()){
+            worker_thread.join();
+        }
     }
 
 
@@ -31,6 +42,7 @@ private:
     std::mutex worker_mutex;
     std::condition_variable wait_worker;
     std::queue<std::string> m_tasks;
+    Request_manager req_mngr;
 
     void process(){
         while(m_stopped==false){
@@ -39,6 +51,7 @@ private:
             std::string temp_command = m_tasks.front();
             m_tasks.pop();
             locker.unlock();
+            req_mngr.set_request(temp_command);
         }   
     }
 };

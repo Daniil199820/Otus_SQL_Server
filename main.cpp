@@ -1,11 +1,11 @@
 #include <iostream>
 #include <vector>
-
-//#include "sqlite3.h"
+#include "Ditchr_Clients.h"
+#include "Ditchr_Requests.h"
 
 int main(){
-	
-
+	Client_require cl;
+	cl.make_request("INSERT A 0 Lean");
 	return 0;
 }
 
@@ -28,7 +28,7 @@ int main(){
 #pragma region EX
 	// const std::string createQuery = "CREATE TABLE IF NOT EXISTS test_table(name, age, cource);";
 #pragma endregion
-	if (sqlite3_exec(handle, createQuery.c_str(), /*callback*/nullptr, /*cb 1st argument*/nullptr, &errMsg)) {
+	if (sqlite3_exec(handle, createQuery.c_str(), /*callback*//*nullptr, /*cb 1st argument*//*nullptr, &errMsg)) {
 	/*	std::cout << "sqlite3_exec with createQuery failed! " << errMsg << std::endl;
 		sqlite3_free(errMsg);
 		return -1;
@@ -74,7 +74,7 @@ int main(){
 	};
 
 	const std::string selectAllQuery = "SELECT * FROM test_table;";
-	if (sqlite3_exec(handle, selectAllQuery.c_str(), /*callback*/readCallback, /*cb 1st argument*/nullptr, &errMsg)) {
+	if (sqlite3_exec(handle, selectAllQuery.c_str(), /*callbackreadCallback, /*cb 1st argumentnullptr, &errMsg)) {
 	/*	std::cout << "sqlite3_exec with createQuery failed! " << errMsg << std::endl;
 		sqlite3_free(errMsg);
 		return -1;
@@ -92,14 +92,14 @@ int main(){
 	};
 
 	for (const auto& query : insertQueries)
-		if (sqlite3_exec(handle, query, /*callback*/nullptr, /*cb 1st argument*/nullptr, &errMsg)) {
+		if (sqlite3_exec(handle, query, /*callbacknullptr, /*cb 1st argumentnullptr, &errMsg)) {
 	/*		std::cout << "sqlite3_exec with createQuery failed! " << errMsg << std::endl;
 			sqlite3_free(errMsg);
 			return -1;
 		}		
 	std::cout << "Successfully inserted!" << std::endl;
 
-	if (sqlite3_exec(handle, selectAllQuery.c_str(), /*callback*/readCallback, /*cb 1st argument*/nullptr, &errMsg)) {
+	if (sqlite3_exec(handle, selectAllQuery.c_str(), /*callbackreadCallback, /*cb 1st argumentnullptr, &errMsg)) {
 	/*	std::cout << "sqlite3_exec with createQuery failed! " << errMsg << std::endl;
 		sqlite3_free(errMsg);
 		return -1;
@@ -107,7 +107,7 @@ int main(){
 	std::cout << "Successfully selected!" << std::endl;
 
 	const std::string sorted_request = "SELECT * from test_table ORDER BY age;";
-	if (sqlite3_exec(handle, sorted_request.c_str(), /*callback*/readCallback, /*cb 1st argument*/nullptr, &errMsg)) {
+	if (sqlite3_exec(handle, sorted_request.c_str(), /*callbackreadCallback, /*cb 1st argumentnullptr, &errMsg)) {
 	/*	std::cout << "sqlite3_exec with createQuery failed! " << errMsg << std::endl;
 		sqlite3_free(errMsg);
 		return -1;
