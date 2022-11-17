@@ -78,6 +78,11 @@ public:
     }
 };
 
+//struct Column{
+//    enum Type{} type;
+//    std::string name;
+//};
+
 class Request_manager{
 public:
     Request_manager() = default;
@@ -85,6 +90,7 @@ public:
     void set_request(const std::string& str_command){
         std::vector<Command*> commands;
         auto vector_words =  parce_function(str_command);
+
         commands.emplace_back(commands_dict.at(vector_words[0]));   
         for(auto& it:commands){
             it->execute();
@@ -107,9 +113,6 @@ private:
         std::vector<std::string> temp_splitted = split(str_,' ');
         
         if(!temp_splitted.empty()){
-            for(auto& it: temp_splitted){
-                std::cout<< it<<"\n";
-            }
         }
         
         if( temp_splitted.empty()){
