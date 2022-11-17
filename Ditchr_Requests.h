@@ -5,12 +5,13 @@
 #include <iostream>
 #include <unordered_map>
 #include <map>
+
 //enum COMMANDS{INSERT, TRUNCATE, INTERSECTION, SYMMETRIC_DIFFERENCE};
 
 class Data_storage{
 public:
     void insert(){
-
+        std::cout<<"super\n";
     }
 
     void truncate(){
@@ -77,26 +78,32 @@ public:
     }
 };
 
-
-
-
-
-
-
-
 class Request_manager{
 public:
     Request_manager() = default;
 
     void set_request(const std::string& str_command){
-        parce_function(str_command);  
+        std::vector<Command*> commands;
+        auto vector_words =  parce_function(str_command);
+        commands.emplace_back(commands_dict.at(vector_words[0]));   
+        for(auto& it:commands){
+            it->execute();
+        }  
     }
 
 private:
-    //std::unordered_map<const std::string, Command*> commands_dict;
-    std::map<const std::string, Command*> commands_dict;
+    Data_storage data_;
 
-    void parce_function(const std::string& str_){
+    std::map<const std::string, Command*> commands_dict = {
+        {"INSERT", new InsertCommand(&data_)},
+        {"TRUNCATE", new TruncateCommand(&data_)},
+        {"INTERSECTION", new IntersectionCommand(&data_)},
+        {"SYMMETRIC_DIFFERENCE", new SymmetricCommand(&data_)}
+    };
+    //std::map<const std::string, Command*> commands_dict={};
+    
+
+    std::vector<std::string> parce_function(const std::string& str_){
         std::vector<std::string> temp_splitted = split(str_,' ');
         
         if(!temp_splitted.empty()){
@@ -109,6 +116,7 @@ private:
             //throw ("use tabulations for splitting"); 
         }
 
+        return temp_splitted;
     }
 
     std::vector<std::string> split(const std::string &str, char d)

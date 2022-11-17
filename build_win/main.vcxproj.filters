@@ -4,9 +4,6 @@
     <ClCompile Include="D:\Otus_outer_join\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Otus_outer_join\sqlite3.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="D:\Otus_outer_join\CMakeLists.txt" />
