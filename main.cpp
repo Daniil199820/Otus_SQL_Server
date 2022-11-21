@@ -12,7 +12,7 @@ struct Column{
 int main(){
 	Client_require cl;
 	cl.make_request("INSERT A 0 Lean");
-	//cl.make_request("INSERT A 0 mms");
+	cl.make_request("INSERT A 0 mms");
 
 	return 0;
 }

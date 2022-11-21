@@ -52,7 +52,7 @@ private:
     using Table = std::unordered_map<const int,std::string,std::hash<int>>;
     Table A;
     Table B;
-    std::map<const std::string, Table> tables = {{"A",A},{"B",B}};
+    std::unordered_map<const std::string, Table,std::hash<int>> tables = {{"A",A},{"B",B}};
 };
 
 class ICommand {
@@ -65,19 +65,18 @@ class Command : public ICommand {
 public:
     virtual ~Command() = default;
 protected:
-    Command(Data_storage* d):data_store(d){}
-    Data_storage* data_store;
+    Command(std::shared_ptr<Data_storage> d):data_store(d){}
+    std::shared_ptr<Data_storage> data_store;
 };
 
 class InsertCommand: public Command{
 public:
-    InsertCommand(Data_storage* d): Command(d){}
+    InsertCommand(std::shared_ptr<Data_storage> d): Command(d){}
 
     void execute(std::list<std::string>& args) override {
         if(args.size()==3){
             std::cout<<"Correct number of arguments\n";
             data_store->insert(args);
-            std::cout<<"Da\n";
         }
         else{
             std::cout<<"Uncorrect number of arguments(Should be 3)\n";
@@ -87,7 +86,7 @@ public:
 
 class TruncateCommand: public Command{
 public:
-    TruncateCommand(Data_storage* d): Command(d){}
+    TruncateCommand(std::shared_ptr<Data_storage> d): Command(d){}
 
     void execute(std::list<std::string>& args) override{
         if(args.size()==1){
@@ -102,7 +101,7 @@ public:
 
 class IntersectionCommand: public Command{
 public:
-    IntersectionCommand(Data_storage* d): Command(d){}
+    IntersectionCommand(std::shared_ptr<Data_storage> d): Command(d){}
 
     void execute(std::list<std::string>& args) override{
         if(args.size()==0){
@@ -118,7 +117,7 @@ public:
 
 class SymmetricCommand: public Command{
 public:
-    SymmetricCommand(Data_storage* d): Command(d){}
+    SymmetricCommand(std::shared_ptr<Data_storage> d): Command(d){}
 
     void execute(std::list<std::string>& args) override{
         if(args.size()==0){
@@ -135,7 +134,9 @@ public:
 
 class Request_manager{
 public:
-    Request_manager(Data_storage* dd):data_(dd){}
+    Request_manager(){
+        data_ = std::make_shared<Data_storage>();
+    }
 
     void set_request(const std::string& str_command){
         std::vector<Command*> commands;
@@ -150,7 +151,7 @@ public:
 
 private:
     
-    Data_storage* data_;
+    std::shared_ptr<Data_storage> data_;
 
     std::map<const std::string, Command*> commands_dict = {
         {"INSERT", new InsertCommand(data_)},

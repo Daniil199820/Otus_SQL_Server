@@ -52,7 +52,7 @@ private:
             while(!m_tasks.empty()){
                 std::string temp_command = m_tasks.front();
                 m_tasks.pop();
-                req_mngr->set_request(temp_command);
+                req_mngr.get()->set_request(temp_command);
             }
         }   
     }
