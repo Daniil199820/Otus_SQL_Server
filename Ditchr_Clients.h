@@ -14,6 +14,7 @@ public:
 	using TCallback = std::function<void()>;
 
     Client_require():m_stopped{false}{
+        req_mngr = std::make_unique<Request_manager>();
         worker_thread = std::thread(&Client_require::process,this);
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
@@ -42,16 +43,17 @@ private:
     std::mutex worker_mutex;
     std::condition_variable wait_worker;
     std::queue<std::string> m_tasks;
-    Request_manager req_mngr;
+    std::unique_ptr<Request_manager>req_mngr;
 
     void process(){
         while(m_stopped==false){
             std::unique_lock<std::mutex> locker(worker_mutex);
             wait_worker.wait(locker,[&](){return !m_tasks.empty()||m_stopped==true;});
-            std::string temp_command = m_tasks.front();
-            m_tasks.pop();
-            locker.unlock();
-            req_mngr.set_request(temp_command);
+            while(!m_tasks.empty()){
+                std::string temp_command = m_tasks.front();
+                m_tasks.pop();
+                req_mngr->set_request(temp_command);
+            }
         }   
     }
 };

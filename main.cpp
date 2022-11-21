@@ -2,10 +2,18 @@
 #include <vector>
 #include "Ditchr_Clients.h"
 #include "Ditchr_Requests.h"
+#include <memory>
+struct Column{
+    enum Type{id,nm} type;
+    std::string name;
+};
+
 
 int main(){
 	Client_require cl;
 	cl.make_request("INSERT A 0 Lean");
+	//cl.make_request("INSERT A 0 mms");
+
 	return 0;
 }
 
